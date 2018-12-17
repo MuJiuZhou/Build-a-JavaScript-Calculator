@@ -1,0 +1,122 @@
+<html>
+<head>
+<script type="text/javascript" src="/jquery/jquery.js"></script>
+<script type="text/javascript">
+var result = "0";//输出计算结果
+var sym = 0;
+var string = "";
+var ans = "";//存储按等于后的结果
+$(document).ready(function() {
+  $('button').click(function() {
+    var text = $(this).attr('value');//获取当前元素值
+    //以下部分解决显示框显示内容问题
+    if(parseInt(text, 10) == text || text === "." || text === "/" || text === "*" || text === "-" || text === "+" || text === "%"){
+      if(sym == 0){
+        result += text;
+        string += text;
+        //输入计算符号时
+        if(text === "/" || text === "*" || text === "-" || text === "+" || text === "%"){
+          sym = 1;
+          string = string.slice(0,-1);
+         }
+        $('.textbox').val(string);
+        //输入符号后再输入则显示string重置 ，有待调整，判断是否继续输入符号      
+      }else if(sym = 1){
+        string = "";
+        result += text;
+        string += text;
+        sym = 0;//12+23   12+时显示12  再按2时显示2   3时显示23
+        $('.textbox').val(string);
+      }
+      
+    //输入其他符号
+    }else if(text === "AC") {
+      result = "";
+      string = "";
+      $(".textbox").val(result);
+    } else if(text === "CE") {
+      result = result.slice(0,-1);
+      string = string.slice(0, -1);
+      $(".textbox").val(string);
+    } else if(text === "=") {
+      ans = eval(result);
+      $(".textbox").val(ans);
+      sym = 0;
+    }else if(text ==="Ans"){
+      ans = eval(result);
+      $(".textbox").val(ans);
+      sym = 0;
+    }
+  
+  });
+  
+  });
+  
+ 
+</script>
+<style>
+html,body{
+  background-color:#8E8E8E;
+}
+.content{
+  position:relative;
+  margin:10% auto auto auto;
+  padding:40px 40px;
+  width:300px;
+  height:400px;
+  background:#9F5000;
+}
+
+.textbox {
+  margin:0 auto 20px auto;
+  text-align: right;
+  font-size:50px;
+  border: 4px;
+  height: 50px;
+  width: 300px;
+
+}
+.btns{
+  text-align: center;
+  border:10px;
+  margin:5px auto;
+}
+.btn {
+  height: 50px;
+  width: 50px;
+  font-weight:200px;
+  font-size:22px;
+  text-align: center;
+  margin:8px 8px;
+}
+
+</style>
+</head>
+<body>
+<div class = "contianer-fluid content">
+  <input class = "textbox" type = "textbox" value = "0">
+  <div class = "btns" >
+    <button class="btn" value="AC">AC</button>
+    <button class="btn" value="CE">CE</button>
+    <button class="btn" value="%">%</button>
+    <button class="btn" value="/">&divide;</button>
+    <button class="btn" value="7">7</button>
+    <button class="btn" value="8">8</button>
+    <button class="btn" value="9">9</button>
+    <button class="btn" value="*">&times;</button>
+    <button class="btn" value="4">4</button>
+    <button class="btn" value="5">5</button>
+    <button class="btn" value="6">6</button>
+    <button class="btn" value="-">-</button>
+    <button class="btn" value="1">1</button>
+    <button class="btn" value="2">2</button>
+    <button class="btn" value="3">3</button>
+    <button class="btn" value="+">+</button>
+    <button class="btn" value=".">.</button>
+    <button class="btn" value="0">0</button>
+    <button class="btn" value="And">Ans</button>
+    <button class="btn" value="=">=</button>
+  </div>
+</div>
+</body>
+</html>
